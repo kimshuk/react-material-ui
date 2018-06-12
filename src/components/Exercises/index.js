@@ -9,7 +9,13 @@ import {
 } from "@material-ui/core";
 
 const styles = {
-  Paper: { padding: 20, marginTop: 10, marginBottom: 10 }
+  Paper: {
+    padding: 20,
+    marginTop: 10,
+    marginBottom: 10,
+    height: 300,
+    overflowY: "auto"
+  }
 };
 
 export default ({ exercises }) => (
@@ -24,20 +30,24 @@ export default ({ exercises }) => (
             >
               {group}
             </Typography>
-            <List component="nav">
-              <ListItem button>
-                <ListItemText primary="Trash" />
-              </ListItem>
-              <ListItem button component="a" href="#simple-list">
-                <ListItemText primary="Spam" />
-              </ListItem>
+            <List component="ul">
+              {exercises.map(({ title }) => (
+                <ListItem button>
+                  <ListItemText primary={title} />
+                </ListItem>
+              ))}
             </List>
           </Fragment>
         ))}
       </Paper>
     </Grid>
     <Grid item sm>
-      <Paper style={styles.Paper}>Right Pane</Paper>
+      <Paper style={styles.Paper}>
+        <Typography variant="display1">Welcome!</Typography>
+        <Typography variant="subheading" style={{ marginTop: 20 }}>
+          Please select an exercise from the list on the left
+        </Typography>
+      </Paper>
     </Grid>
   </Grid>
 );
