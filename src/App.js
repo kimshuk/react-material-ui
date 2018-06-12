@@ -30,7 +30,9 @@ export default class App extends Component {
   }
 
   handleCategorySelected = category => {
-    this.setState({});
+    this.setState({
+      category
+    });
   };
 
   render() {
