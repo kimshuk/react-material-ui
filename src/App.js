@@ -6,8 +6,7 @@ import { muscles, exercises } from "./store";
 
 export default class App extends Component {
   state = {
-    exercises,
-    category: ""
+    exercises
   };
 
   getExercisesByMuscles() {
@@ -43,7 +42,7 @@ export default class App extends Component {
     return (
       <Fragment>
         <Header />
-        <Exercises exercises={exercises} />
+        <Exercises category={category} exercises={exercises} />
 
         <Footer
           category={category}
