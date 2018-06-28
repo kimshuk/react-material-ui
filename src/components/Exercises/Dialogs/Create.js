@@ -6,6 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AddIcon from "@material-ui/icons/Add";
+import TextField from "@material-ui/core/TextField";
 
 export default class Create extends Component {
   state = {
@@ -35,7 +36,15 @@ export default class Create extends Component {
               Please fill out the form below.
             </DialogContentText>
           </DialogContent>
-          <form />
+          <form>
+            <TextField
+              id="name"
+              label="Name"
+              // value={this.state.name}
+              // onChange={this.handleChange("name")}
+              margin="normal"
+            />
+          </form>
           <DialogActions>
             <Button color="primary" variant="raised">
               Create
