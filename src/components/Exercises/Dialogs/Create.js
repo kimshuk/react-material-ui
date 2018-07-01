@@ -6,11 +6,20 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AddIcon from "@material-ui/icons/Add";
+import InputLabel from "@material-ui/core/InputLabel";
 import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 export default class Create extends Component {
   state = {
-    open: false
+    open: false,
+    exercises: {
+      title: "",
+      description: "",
+      muscles: ""
+    }
   };
 
   handleToggle = () => {
@@ -19,8 +28,21 @@ export default class Create extends Component {
     });
   };
 
+  handleChange = name => ({ target: value }) => {
+    this.setState({
+      exercise: {
+        ...this.state.exercises,
+        [name]: value
+      }
+    });
+  };
+
   render() {
-    const { open } = this.state;
+    const {
+        open,
+        exercises: { title, description, muscles }
+      } = this.state,
+      { muscles: categories } = this.props;
 
     return (
       <Fragment>
@@ -35,16 +57,34 @@ export default class Create extends Component {
             <DialogContentText>
               Please fill out the form below.
             </DialogContentText>
+
+            <form>
+              <TextField
+                label="Title"
+                value={title}
+                onChange={this.handleChange("muscles")}
+                margin="normal"
+              />
+              <br />
+              <FormControl>
+                <InputLabel htmlFor="muscles">Muscles</InputLabel>
+                <Select value={muscles} onChange={this.handleChange}>
+                  {categories.map(category => (
+                    <MenuItem value={category}>{category}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <br />
+              <TextField
+                multiline
+                rows="4"
+                label="Description"
+                value={description}
+                onChange={this.handleChange("description")}
+                margin="normal"
+              />
+            </form>
           </DialogContent>
-          <form>
-            <TextField
-              id="name"
-              label="Name"
-              // value={this.state.name}
-              // onChange={this.handleChange("name")}
-              margin="normal"
-            />
-          </form>
           <DialogActions>
             <Button color="primary" variant="raised">
               Create
