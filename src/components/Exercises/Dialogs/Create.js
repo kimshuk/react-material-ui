@@ -15,15 +15,15 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   FormControl: {
-    width: 300
+    width: 500
   }
 });
 
 export default withStyles(styles)(
-  class Create extends Component {
+  class extends Component {
     state = {
       open: false,
-      exercises: {
+      exercise: {
         title: "",
         description: "",
         muscles: ""
@@ -50,13 +50,25 @@ export default withStyles(styles)(
 
       const { exercise } = this.state;
 
-      this.props.onCreate(exercise);
+      this.props.onCreate({
+        ...exercise,
+        id: exercise.title.toLocaleLowerCase().replace(/ /g, "-")
+      });
+
+      this.setState({
+        open: false,
+        exercise: {
+          title: "",
+          description: "",
+          muscles: ""
+        }
+      });
     };
 
     render() {
       const {
           open,
-          exercises: { title, description, muscles }
+          exercise: { title, description, muscles }
         } = this.state,
         { classes, muscles: categories } = this.props;
 
@@ -65,6 +77,7 @@ export default withStyles(styles)(
           <Button variant="fab" onClick={this.handleToggle} mini>
             <AddIcon />
           </Button>
+
           <Dialog open={open} onClose={this.handleToggle}>
             <DialogTitle id="form-dialog-title">
               Create a New Exercise
@@ -73,7 +86,6 @@ export default withStyles(styles)(
               <DialogContentText>
                 Please fill out the form below.
               </DialogContentText>
-
               <form>
                 <TextField
                   label="Title"

@@ -4,7 +4,7 @@ import { Header, Footer } from "./components/Layout";
 import Exercises from "./components/Exercises";
 import { muscles, exercises } from "./store";
 
-export default class App extends Component {
+export default class extends Component {
   state = {
     exercises,
     exercise: {}
@@ -14,11 +14,6 @@ export default class App extends Component {
     return Object.entries(
       this.state.exercises.reduce((exercises, exercise) => {
         const { muscles } = exercise;
-
-        // console.log(muscles, " muscles");
-        // console.log(exercise, " exercise");
-        // console.log(exercises, " exercises");
-        // console.log(exercises[muscles], " exercises[muscles]");
 
         exercises[muscles] = exercises[muscles]
           ? [...exercises[muscles], exercise]
@@ -42,7 +37,7 @@ export default class App extends Component {
   };
 
   handleExerciseCreate = exercise => {
-    this.setState(({ exercise }) => ({
+    this.setState(({ exercises }) => ({
       exercises: [...exercises, exercise]
     }));
   };
@@ -57,6 +52,7 @@ export default class App extends Component {
           muscles={muscles}
           onExerciseCreate={this.handleExerciseCreate}
         />
+
         <Exercises
           exercise={exercise}
           category={category}
